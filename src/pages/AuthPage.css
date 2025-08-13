@@ -1,0 +1,228 @@
+/* Import Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+/* Base styles for the entire page, ensuring full viewport coverage */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Takes full viewport height */
+    background: linear-gradient(135deg, #5E2CA5, #F25C2A); /* Main background gradient with new colors */
+    overflow: hidden; /* Hides content outside during transitions */
+    width: 100vw; /* Ensure it covers full width too */
+}
+
+/* Container for the authentication panel */
+.auth-panel {
+    position: relative;
+    width: 80vw; /* Responsive width */
+    max-width: 900px; /* Max width for large screens */
+    height: 550px; /* Fixed height for consistent sliding */
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden; /* Crucial for hiding the non-active view */
+}
+
+/* The container that holds both the LoginView and SignUpView */
+/* It will slide horizontally to reveal the active view */
+.views-wrapper {
+    display: flex;
+    width: 200%; /* Holds two 100% width views side-by-side */
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Each individual full authentication view (login or signup) */
+.auth-view {
+    width: 50%; /* Each view takes half of the 200% wrapper, effectively 100% of auth-panel */
+    height: 100%;
+    display: flex; /* Arranges its form and overlay sections horizontally */
+    flex-shrink: 0; /* Prevents shrinking when flex items try to fit */
+}
+
+/* Styling for the form and overlay sections within each auth-view */
+.form-section, .overlay-section {
+    width: 50%; /* Each takes half of the auth-view */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box; /* Includes padding in element's total width */
+}
+
+/* Specific gradients for the overlay sections */
+.signup-prompt-overlay {
+    background: linear-gradient(135deg, #F25C2A, #f27c2a); /* Orange gradient for Sign Up prompt */
+}
+
+.login-prompt-overlay {
+    background: linear-gradient(135deg, #5E2CA5, #7e42d1); /* Purple gradient for Login prompt */
+}
+
+/* Styling for the form boxes (Login and Sign Up forms) */
+.form-box {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.form-box h2 {
+    margin-bottom: 25px;
+    color: #5E2CA5; /* Dark purple for headings */
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.form-box input {
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-box input:focus {
+    border-color: #F25C2A; /* Orange on focus */
+}
+
+.form-box button {
+    padding: 14px 25px;
+    background: #F25C2A; /* Orange for buttons */
+    color: white;
+    border: none;
+    border-radius: 25px; /* Pill-shaped button */
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.form-box button:hover {
+    background-color: #e04b1e; /* Slightly darker orange on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Styling for the overlay content (messages and switch buttons) */
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    border-radius: 8px; /* Consistent rounded corners */
+    height: 100%;
+    width: 100%;
+}
+
+.overlay-content h2 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.overlay-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Styling for the 'ghost' buttons used for switching modes */
+.ghost-button {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 25px; /* Pill-shaped buttons */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.ghost-button:hover {
+    background-color: white;
+    color: #F25C2A; /* Changes to orange or purple based on context */
+}
+
+/* --- Sliding Logic (Desktop/Wide Screens) --- */
+/* Default state: Login view is active, views-wrapper is at its initial position */
+.views-wrapper.login-active {
+    transform: translateX(0%);
+}
+
+/* When signup view is active, views-wrapper slides left by 50% */
+.views-wrapper.signup-active {
+    transform: translateX(-50%);
+}
+
+/* --- Responsive Adjustments for Smaller Screens (stacked layout) --- */
+@media (max-width: 768px) {
+    .auth-panel {
+        width: 95vw;
+        height: auto; /* Height adjusts to content dynamically */
+        flex-direction: column; /* Stack sections vertically */
+        max-height: 95vh;
+        overflow-y: auto; /* Allow scrolling if content is too long */
+    }
+
+    .views-wrapper {
+        flex-direction: column; /* Stack views vertically */
+        width: 100%; /* Reset width for vertical stacking */
+        height: auto;
+        /* Adjust transition for vertical movement */
+        transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .auth-view {
+        flex-direction: column; /* Stack form and overlay sections vertically within each view */
+        width: 100%; /* Each view takes full width when stacked */
+        min-height: 600px; /* Minimum height for each stacked view */
+    }
+
+    .form-section, .overlay-section {
+        width: 100%; /* Each section takes full width */
+        min-height: 300px; /* Ensure minimum height for stacked sections */
+        padding: 25px;
+    }
+
+    /* --- Sliding Logic for Small Screens (Vertical Slide) --- */
+    /* Default state: Login view is active, wrapper is at its initial top position */
+    .views-wrapper.login-active {
+        transform: translateY(0);
+    }
+
+    /* When signup view is active, wrapper slides up by 50% */
+    .views-wrapper.signup-active {
+        transform: translateY(-50%);
+    }
+
+    .overlay-content h2 {
+        font-size: 2.2rem;
+    }
+    .overlay-content p {
+        font-size: 0.95rem;
+    }
+    .ghost-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
