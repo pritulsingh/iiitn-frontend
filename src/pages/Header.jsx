@@ -1,8 +1,10 @@
 import React from "react";
 import { FaBookOpen, FaComments } from "react-icons/fa"; // icons import
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <div style={styles.header}>
       {/* Left Section: Logo & Name */}
@@ -26,8 +28,8 @@ export default function Header() {
 
       {/* Right Section: Buttons */}
       <div style={styles.buttons}>
-        <button style={styles.loginBtn}>Login</button>
-        <button style={styles.signupBtn}>Sign Up</button>
+        <button style={styles.loginBtn} onClick={() => navigate("/auth")} >Login</button>
+        <button style={styles.signupBtn}  onClick={() => navigate("/auth")}>Sign Up</button>
       </div>
     </div>
   );

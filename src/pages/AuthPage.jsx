@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import './AuthPage.css'; // Importing the external CSS file
+import { useNavigate } from "react-router-dom"; // <-- Import navigation hook
+import "../css/AuthPage.css";
 
-// LoginForm component - Displays the login form fields
 function LoginForm() {
   return (
     <div className="form-box">
@@ -13,7 +13,6 @@ function LoginForm() {
   );
 }
 
-// SignUpForm component - Displays the signup form fields
 function SignUpForm() {
   return (
     <div className="form-box">
@@ -26,44 +25,65 @@ function SignUpForm() {
   );
 }
 
-// App component - Main component managing the sliding authentication page
-export default function App() {
-  // State to control which view is active: true for login, false for signup
+export default function AuthPage() {
   const [isLoginActive, setIsLoginActive] = useState(true);
+  const navigate = useNavigate(); // For going back
 
-  // Function to set the page to login view
   const handleLoginClick = () => setIsLoginActive(true);
-
-  // Function to set the page to signup view
   const handleSignupClick = () => setIsLoginActive(false);
 
   return (
     <div className="app-container">
-      {/* The main authentication panel that holds the sliding views */}
+      {/* Back Button */}
+      <button
+        className="back-button"
+        onClick={() => navigate(-1)} // Go back to previous page
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          padding: "6px 12px",
+          border: "none",
+          background: "#a64ac9",
+          color: "white",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        ← Back
+      </button>
+
       <div className="auth-panel">
-        {/* The wrapper that slides horizontally (desktop) or vertically (mobile) */}
-        <div className={`views-wrapper ${isLoginActive ? "login-active" : "signup-active"}`}>
-          {/* Login View: Contains Login Form and the 'Sign Up' prompt overlay */}
+        <div
+          className={`views-wrapper ${isLoginActive ? "login-active" : "signup-active"}`}
+        >
+          {/* Login View */}
           <div className="auth-view login-view">
             <div className="form-section">
               <LoginForm />
             </div>
             <div className="overlay-section signup-prompt-overlay">
               <div className="overlay-content">
-                <h2>Hello, Friend!</h2>
+                <h2>Hello, Student!</h2>
                 <p>Enter your personal details and start your journey with us.</p>
-                <button className="ghost-button" onClick={handleSignupClick}>Sign Up</button>
+                <button className="ghost-button" onClick={handleSignupClick}>
+                  Sign Up
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Sign Up View: Contains the 'Login' prompt overlay and the Sign Up Form */}
+          {/* Sign Up View */}
           <div className="auth-view signup-view">
             <div className="overlay-section login-prompt-overlay">
               <div className="overlay-content">
                 <h2>Welcome Back!</h2>
-                <p>To keep connected with us, please login with your personal info.</p>
-                <button className="ghost-button" onClick={handleLoginClick}>Login</button>
+                <p>
+                  To keep connected with us, please login with your personal info.
+                </p>
+                <button className="ghost-button" onClick={handleLoginClick}>
+                  Login
+                </button>
               </div>
             </div>
             <div className="form-section">
