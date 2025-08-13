@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBookOpen, FaComments } from "react-icons/fa"; // icons import
+import { FaBookOpen, FaComments } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
@@ -7,7 +7,6 @@ export default function Header() {
   const navigate = useNavigate();
   return (
     <div style={styles.header}>
-      {/* Left Section: Logo & Name */}
       <div style={styles.left}>
         <img src={logo} alt="Logo" style={styles.logo} />
         <div style={styles.brand}>
@@ -16,7 +15,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Middle Section: Links */}
       <div style={styles.links}>
         <a href="#materials" style={styles.link}>
           <FaBookOpen style={styles.icon} /> Study Materials
@@ -24,9 +22,14 @@ export default function Header() {
         <a href="#forum" style={styles.link}>
           <FaComments style={styles.icon} /> Discussion Forum
         </a>
+        <a href="#courses" style={styles.link}>
+          <FaBookOpen style={styles.icon} /> Courses
+        </a>
+        <a href="#about" style={styles.link}>
+          <FaComments style={styles.icon} /> About
+        </a>
       </div>
 
-      {/* Right Section: Buttons */}
       <div style={styles.buttons}>
         <button style={styles.loginBtn} onClick={() => navigate("/auth")} >Login</button>
         <button style={styles.signupBtn}  onClick={() => navigate("/auth")}>Sign Up</button>
@@ -45,12 +48,24 @@ const styles = {
     borderBottom: "2px solid #5e2ca5",
     fontFamily: "Arial, sans-serif",
   },
-  left: { display: "flex", alignItems: "center" },
-  logo: { height: "40px", marginRight: "8px" },
+  left: { 
+    display: "flex", 
+    alignItems: "center", 
+    flex: "1",
+    maxWidth: "25%"
+  },
+  logo: { height: "40px", marginRight: "15px" },
   brand: { display: "flex", flexDirection: "column", lineHeight: "1.2" },
   brandName: { fontSize: "18px", fontWeight: "bold", color: "#5e2ca5" },
   tagline: { fontSize: "12px", color: "#666" },
-  links: { display: "flex", gap: "20px", alignItems: "center" },
+  links: { 
+    display: "flex", 
+    gap: "30px", 
+    alignItems: "center", 
+    flex: "2",
+    justifyContent: "center",
+    maxWidth: "50%"
+  },
   link: {
     textDecoration: "none",
     color: "#444",
@@ -63,7 +78,13 @@ const styles = {
     fontSize: "16px",
     color: "#5e2ca5",
   },
-  buttons: { display: "flex", gap: "10px" },
+  buttons: { 
+    display: "flex", 
+    gap: "10px", 
+    flex: "1",
+    justifyContent: "flex-end",
+    maxWidth: "25%"
+  },
   loginBtn: {
     padding: "6px 14px",
     border: "1px solid #a64ac9",
