@@ -1,11 +1,29 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // <-- Import navigation hook
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 import "../css/AuthPage.css";
 
 function LoginForm() {
+  const [isStudent, setIsStudent] = useState(true);
+
+  const handleSwitchClick = () => {
+    setIsStudent(!isStudent);
+  };
+
   return (
     <div className="form-box">
       <h2>Login</h2>
+       {/* Student / Faculty Switch */}
+      <div className="user-type-switch">
+        <span className={isStudent ? "active" : ""}>Student</span>
+        <span
+          className={`switch-arrow ${isStudent ? "" : "rotated"}`}
+          onClick={handleSwitchClick}
+        >
+          ⇄
+        </span>
+        <span className={!isStudent ? "active" : ""}>Faculty</span>
+      </div>
       <input type="email" placeholder="Email" />
       <input type="password" placeholder="Password" />
       <button>Login</button>
@@ -14,9 +32,28 @@ function LoginForm() {
 }
 
 function SignUpForm() {
+  const [isStudent, setIsStudent] = useState(true);
+
+  const handleSwitchClick = () => {
+    setIsStudent(!isStudent);
+  };
+
   return (
     <div className="form-box">
       <h2>Sign Up</h2>
+
+      {/* Student / Faculty Switch */}
+      <div className="user-type-switch">
+        <span className={isStudent ? "active" : ""}>Student</span>
+        <span
+          className={`switch-arrow ${isStudent ? "" : "rotated"}`}
+          onClick={handleSwitchClick}
+        >
+          ⇄
+        </span>
+        <span className={!isStudent ? "active" : ""}>Faculty</span>
+      </div>
+
       <input type="text" placeholder="Full Name" />
       <input type="email" placeholder="Email" />
       <input type="password" placeholder="Password" />
@@ -25,9 +62,10 @@ function SignUpForm() {
   );
 }
 
+
 export default function AuthPage() {
   const [isLoginActive, setIsLoginActive] = useState(true);
-  const navigate = useNavigate(); // For going back
+  const navigate = useNavigate();
 
   const handleLoginClick = () => setIsLoginActive(true);
   const handleSignupClick = () => setIsLoginActive(false);
@@ -37,7 +75,7 @@ export default function AuthPage() {
       {/* Back Button */}
       <button
         className="back-button"
-        onClick={() => navigate(-1)} // Go back to previous page
+        onClick={() => navigate(-1)}
         style={{
           position: "absolute",
           top: "20px",
@@ -55,7 +93,9 @@ export default function AuthPage() {
 
       <div className="auth-panel">
         <div
-          className={`views-wrapper ${isLoginActive ? "login-active" : "signup-active"}`}
+          className={`views-wrapper ${
+            isLoginActive ? "login-active" : "signup-active"
+          }`}
         >
           {/* Login View */}
           <div className="auth-view login-view">

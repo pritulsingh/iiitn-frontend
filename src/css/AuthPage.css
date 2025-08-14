@@ -1,10 +1,43 @@
+/*
+ * Updated CSS for the authentication panel.
+ *
+ * This version introduces CSS custom properties for better maintainability and
+ * readability while preserving all original functionality and design.
+ */
+
 /* Import Inter font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
-/* Base styles for the entire page, ensuring full viewport coverage */
+/* --- CSS Variables --- */
+/*
+ * Define a centralized color palette and other reusable values.
+ * This makes it much easier to update the theme later.
+ */
+:root {
+    --primary-purple: #5E2CA5;
+    --primary-orange: #F25C2A;
+    --dark-purple-gradient-start: #5E2CA5;
+    --dark-purple-gradient-end: #7e42d1;
+    --orange-gradient-start: #F25C2A;
+    --orange-gradient-end: #f27c2a;
+    --hover-orange: #e04b1e;
+    --background-gradient-start: #5E2CA5;
+    --background-gradient-end: #F25C2A;
+    --text-color-dark: #5E2CA5;
+    --border-color-light: #ddd;
+    --button-shadow: rgba(0,0,0,0.15);
+    --panel-shadow: rgba(0,0,0,0.2);
+    --border-radius: 12px;
+    --button-radius: 25px;
+    --font-family: 'Inter', sans-serif;
+    --transition-speed: 0.6s;
+    --cubic-bezier: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* --- Global & Base Styles --- */
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -13,62 +46,61 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Takes full viewport height */
-    background: linear-gradient(135deg, #5E2CA5, #F25C2A); /* Main background gradient with new colors */
-    overflow: hidden; /* Hides content outside during transitions */
-    width: 100vw; /* Ensure it covers full width too */
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
+    overflow: hidden;
+    width: 100vw;
 }
 
-/* Container for the authentication panel */
+/* --- Main Panel Layout --- */
 .auth-panel {
     position: relative;
-    width: 80vw; /* Responsive width */
-    max-width: 900px; /* Max width for large screens */
-    height: 550px; /* Fixed height for consistent sliding */
+    width: 80vw;
+    max-width: 900px;
+    height: 550px;
     background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    overflow: hidden; /* Crucial for hiding the non-active view */
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px var(--panel-shadow);
+    overflow: hidden;
 }
 
-/* The container that holds both the LoginView and SignUpView */
-/* It will slide horizontally to reveal the active view */
 .views-wrapper {
     display: flex;
-    width: 200%; /* Holds two 100% width views side-by-side */
+    width: 200%;
     height: 100%;
-    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform var(--transition-speed) var(--cubic-bezier);
 }
 
-/* Each individual full authentication view (login or signup) */
+/* Each full authentication view (login or signup) */
 .auth-view {
-    width: 50%; /* Each view takes half of the 200% wrapper, effectively 100% of auth-panel */
+    width: 50%;
     height: 100%;
-    display: flex; /* Arranges its form and overlay sections horizontally */
-    flex-shrink: 0; /* Prevents shrinking when flex items try to fit */
+    display: flex;
+    flex-shrink: 0;
 }
 
-/* Styling for the form and overlay sections within each auth-view */
-.form-section, .overlay-section {
-    width: 50%; /* Each takes half of the auth-view */
+/* --- Form and Overlay Sections --- */
+.form-section,
+.overlay-section {
+    width: 50%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px;
-    box-sizing: border-box; /* Includes padding in element's total width */
+    box-sizing: border-box;
 }
 
 /* Specific gradients for the overlay sections */
 .signup-prompt-overlay {
-    background: linear-gradient(135deg, #F25C2A, #f27c2a); /* Orange gradient for Sign Up prompt */
+    background: linear-gradient(135deg, var(--orange-gradient-start), var(--orange-gradient-end));
 }
 
 .login-prompt-overlay {
-    background: linear-gradient(135deg, #5E2CA5, #7e42d1); /* Purple gradient for Login prompt */
+    background: linear-gradient(135deg, var(--dark-purple-gradient-start), var(--dark-purple-gradient-end));
 }
 
-/* Styling for the form boxes (Login and Sign Up forms) */
+/* --- Form Elements --- */
 .form-box {
     width: 100%;
     max-width: 300px;
@@ -79,7 +111,7 @@ body {
 
 .form-box h2 {
     margin-bottom: 25px;
-    color: #5E2CA5; /* Dark purple for headings */
+    color: var(--text-color-dark);
     font-size: 2.2rem;
     font-weight: 800;
 }
@@ -87,7 +119,7 @@ body {
 .form-box input {
     padding: 14px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-light);
     border-radius: 8px;
     font-size: 1rem;
     outline: none;
@@ -95,29 +127,29 @@ body {
 }
 
 .form-box input:focus {
-    border-color: #F25C2A; /* Orange on focus */
+    border-color: var(--primary-orange);
 }
 
 .form-box button {
     padding: 14px 25px;
-    background: #F25C2A; /* Orange for buttons */
+    background: var(--primary-orange);
     color: white;
     border: none;
-    border-radius: 25px; /* Pill-shaped button */
+    border-radius: var(--button-radius);
     cursor: pointer;
     font-size: 1.1rem;
     font-weight: 600;
     margin-top: 10px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 10px var(--button-shadow);
 }
 
 .form-box button:hover {
-    background-color: #e04b1e; /* Slightly darker orange on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+    background-color: var(--hover-orange);
+    transform: translateY(-2px);
 }
 
-/* Styling for the overlay content (messages and switch buttons) */
+/* --- Overlay Content & Ghost Buttons --- */
 .overlay-content {
     display: flex;
     flex-direction: column;
@@ -126,7 +158,7 @@ body {
     text-align: center;
     color: white;
     padding: 20px;
-    border-radius: 8px; /* Consistent rounded corners */
+    border-radius: 8px;
     height: 100%;
     width: 100%;
 }
@@ -143,74 +175,69 @@ body {
     margin-bottom: 30px;
 }
 
-/* Styling for the 'ghost' buttons used for switching modes */
 .ghost-button {
     background: transparent;
     border: 2px solid white;
     color: white;
     padding: 12px 28px;
-    border-radius: 25px; /* Pill-shaped buttons */
+    border-radius: var(--button-radius);
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px var(--panel-shadow);
 }
 
 .ghost-button:hover {
     background-color: white;
-    color: #F25C2A; /* Changes to orange or purple based on context */
+    color: var(--primary-orange);
 }
 
-/* --- Sliding Logic (Desktop/Wide Screens) --- */
-/* Default state: Login view is active, views-wrapper is at its initial position */
+/* --- Sliding Logic (Desktop) --- */
 .views-wrapper.login-active {
     transform: translateX(0%);
 }
 
-/* When signup view is active, views-wrapper slides left by 50% */
 .views-wrapper.signup-active {
     transform: translateX(-50%);
 }
 
-/* --- Responsive Adjustments for Smaller Screens (stacked layout) --- */
+/* --- Responsive Adjustments (Mobile) --- */
 @media (max-width: 768px) {
     .auth-panel {
         width: 95vw;
-        height: auto; /* Height adjusts to content dynamically */
-        flex-direction: column; /* Stack sections vertically */
+        height: auto;
+        flex-direction: column;
         max-height: 95vh;
-        overflow-y: auto; /* Allow scrolling if content is too long */
+        overflow-y: auto;
     }
 
     .views-wrapper {
-        flex-direction: column; /* Stack views vertically */
-        width: 100%; /* Reset width for vertical stacking */
+        flex-direction: column;
+        width: 100%;
         height: auto;
-        /* Adjust transition for vertical movement */
-        transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: transform var(--transition-speed) var(--cubic-bezier);
     }
 
     .auth-view {
-        flex-direction: column; /* Stack form and overlay sections vertically within each view */
-        width: 100%; /* Each view takes full width when stacked */
-        min-height: 600px; /* Minimum height for each stacked view */
+        flex-direction: column;
+        width: 100%;
+        min-height: 600px;
     }
 
-    .form-section, .overlay-section {
-        width: 100%; /* Each section takes full width */
-        min-height: 300px; /* Ensure minimum height for stacked sections */
+    .form-section,
+    .overlay-section {
+        width: 100%;
+        min-height: 300px;
         padding: 25px;
     }
 
-    /* --- Sliding Logic for Small Screens (Vertical Slide) --- */
-    /* Default state: Login view is active, wrapper is at its initial top position */
+    /* Vertical Sliding Logic for Mobile */
     .views-wrapper.login-active {
         transform: translateY(0);
     }
 
-    /* When signup view is active, wrapper slides up by 50% */
     .views-wrapper.signup-active {
         transform: translateY(-50%);
     }
@@ -218,35 +245,115 @@ body {
     .overlay-content h2 {
         font-size: 2.2rem;
     }
+
     .overlay-content p {
         font-size: 0.95rem;
     }
+
     .ghost-button {
         padding: 10px 20px;
         font-size: 0.9rem;
     }
 }
+
+/* --- Additional Elements --- */
 .back-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, #a64ac9, #ff6f61);
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #a64ac9, #ff6f61);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px var(--button-shadow);
+    transition: all 0.3s ease;
 }
 
 .back-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
 }
 
 .back-button:active {
-  transform: scale(0.97);
+    transform: scale(0.97);
+}
+
+/* --- Improved Toggle Switch UI --- */
+.switch-container {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px; /* Adjust spacing as needed */
+}
+
+/* Hide the default checkbox input */
+.switch-checkbox {
+    display: none;
+}
+
+/* The visual part of the toggle switch (the track) */
+.switch-label {
+    display: block;
+    width: 60px;
+    height: 34px;
+    background-color: #ccc;
+    border-radius: 34px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+}
+
+/* The sliding knob of the toggle switch */
+.switch-label::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 26px;
+    height: 26px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.4s ease;
+}
+
+/* When the checkbox is checked, change the background and slide the knob */
+.switch-checkbox:checked + .switch-label {
+    background-color: var(--primary-orange);
+}
+
+.switch-checkbox:checked + .switch-label::after {
+    transform: translateX(26px);
+}
+.user-type-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-color-dark);
+}
+
+.user-type-switch span {
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.user-type-switch .active {
+    color: var(--primary-orange);
+}
+
+.switch-arrow {
+    font-size: 1.4rem;
+    color: var(--primary-purple);
+    user-select: none;
+    transition: transform 0.3s ease;
+}
+
+.switch-arrow.rotated {
+    transform: rotate(180deg);
 }
