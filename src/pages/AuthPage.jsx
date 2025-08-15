@@ -15,14 +15,14 @@ function LoginForm() {
       <h2>Login</h2>
        {/* Student / Faculty Switch */}
       <div className="user-type-switch">
-        <span className={isStudent ? "active" : ""}>Student</span>
+        <span className={isStudent ? "active" : ""} onClick={handleSwitchClick}>Student</span>
         <span
           className={`switch-arrow ${isStudent ? "" : "rotated"}`}
           onClick={handleSwitchClick}
         >
           ⇄
         </span>
-        <span className={!isStudent ? "active" : ""}>Faculty</span>
+        <span className={!isStudent ? "active" : ""} onClick={handleSwitchClick}>Faculty</span>
       </div>
       <input type="email" placeholder="Email" />
       <input type="password" placeholder="Password" />
@@ -44,14 +44,14 @@ function SignUpForm() {
 
       {/* Student / Faculty Switch */}
       <div className="user-type-switch">
-        <span className={isStudent ? "active" : ""}>Student</span>
+        <span className={isStudent ? "active" : ""} onClick={handleSwitchClick}>Student</span>
         <span
           className={`switch-arrow ${isStudent ? "" : "rotated"}`}
           onClick={handleSwitchClick}
         >
           ⇄
         </span>
-        <span className={!isStudent ? "active" : ""}>Faculty</span>
+        <span className={!isStudent ? "active" : ""} onClick={handleSwitchClick}>Faculty</span>
       </div>
 
       <input type="text" placeholder="Full Name" />
