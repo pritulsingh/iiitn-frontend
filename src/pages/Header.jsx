@@ -14,7 +14,6 @@ export default function Header() {
           <span style={styles.tagline}>Learn • Share • Grow</span>
         </div>
       </div>
-
       <div style={styles.links}>
         <a href="#materials" style={styles.link}>
           <FaBookOpen style={styles.icon} /> Study Materials
